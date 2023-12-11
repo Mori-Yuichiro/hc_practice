@@ -1,7 +1,6 @@
 /* スマホ版 */
 body {
     min-width: 300px;
-    overflow-x: hidden;
     margin: 0 auto;
     text-align: center;
 }
@@ -10,17 +9,16 @@ body {
     width: 100%;
     display: grid;
     grid-template-columns: 100%;
-    padding: 0 4%;
     box-sizing: border-box;
 }
 
 .header {
     width: 350px;
     display: flex;
-    margin: 0 auto;
+    margin: 10px auto;
     justify-content: space-between;
-    margin-bottom: 10px;
     gap: 0 8%;
+    align-items: center;
 }
 
 .header p {
@@ -28,7 +26,6 @@ body {
     background-color: #000;
     color: #fff;
     padding: 10px 2.66%;
-    margin-top: 10px;
 }
 
 .header ul {
@@ -36,7 +33,6 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 0 20px;
-    padding-top: 20px;
 }
 
 .main_image img {
@@ -47,7 +43,7 @@ body {
 
 .introduce {
     margin: 0 auto;
-    width: 36%;
+    width: 98%;
 }
 
 .introduce h1 {
@@ -57,7 +53,7 @@ body {
     margin: 0 auto;
 }
 
-.introduce h3 {
+.intro_text {
     margin-top: 40px;
 }
 
@@ -76,7 +72,7 @@ body {
 }
 
 .profile {
-    width: 100%;
+    width: 98%;
     margin: 0 auto;
 }
 
