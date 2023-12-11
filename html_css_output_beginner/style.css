@@ -1,0 +1,143 @@
+/* スマホ版 */
+body {
+    min-width: 300px;
+    overflow-x: hidden;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 100%;
+    padding: 0 4%;
+    box-sizing: border-box;
+}
+
+.header {
+    width: 350px;
+    display: flex;
+    margin: 0 auto;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    gap: 0 8%;
+}
+
+.header p {
+    width: 70px;
+    background-color: #000;
+    color: #fff;
+    padding: 10px 2.66%;
+    margin-top: 10px;
+}
+
+.header ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 0 20px;
+    padding-top: 20px;
+}
+
+.main_image img {
+    width: 100%;
+    height: 600px;
+    margin-bottom: 60px;
+}
+
+.introduce {
+    margin: 0 auto;
+    width: 36%;
+}
+
+.introduce h1 {
+    display: inline-block;
+    font-size: 30px;
+    border-bottom: 1px solid;
+    margin: 0 auto;
+}
+
+.introduce h3 {
+    margin-top: 40px;
+}
+
+.introduce p {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.intro_img {
+    margin-top: 10px;
+}
+
+.intro_img img {
+    border-radius: 50%;
+    margin-bottom: 40px;
+}
+
+.profile {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.profile h1 {
+    display: inline-block;
+    font-size: 30px;
+    border-bottom: 1px solid;
+    margin: 40px 0;
+}
+
+.prof-series {
+    display: grid;
+    gap: 10px;
+    font-size: 1em;
+}
+
+.series h3,
+.series p {
+    line-height: 30px;
+}
+
+.prof-series img {
+    width: 36%;
+}
+
+.footer {
+    width: 100%;
+    margin-top: 50px;
+    font-size: 10px;
+}
+
+/* PC版 */
+@media screen and (min-width:600px) {
+    .header {
+        width: 59%;
+    }
+
+    .intro_contents {
+        display: grid;
+        grid-template-columns: 3fr 1fr;
+        gap: 0 10%;
+    }
+
+    .intro_text {
+        text-align: left;
+        grid-column: 1;
+    }
+
+    .intro_img {
+        grid-column: 2;
+    }
+
+    .prof-series {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        /* width: 780px; */
+        width: 50%;
+        margin: 0 auto;
+    }
+
+    .series figure img {
+        width: 100%;
+    }
+}
