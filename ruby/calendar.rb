@@ -6,21 +6,15 @@ option = {}
 
 # 第一週の表示位置を調節する
 def first_week_blank(wday)
-  #日曜日
-  if wday == 0
-    print ' ' * 18
-  #火曜日~土曜日
-  elsif wday >= 2 && wday <= 6
-    print '   ' * (wday - 1)
-  end
+  wday_blank = wday.zero? ? 7 : wday
+  print '   ' * (wday_blank - 1)
 end
 
 # 日曜日には出力後に改行を入れる
 def day_judge(day)
-  case day.wday
-  when 0
+  if day.wday == 0
     puts sprintf("%2d", day.day)
-  when (1..6)
+  elsif day.wday >= 1 && day.wday <= 6
     print sprintf("%2d", day.day) + ' '
   end
 end
