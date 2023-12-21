@@ -1,34 +1,22 @@
 # 規定打数以下のときの結果を表示
-def result_under(regulation, result)
-    case regulation-result
-    when 0
-        "パー"
-    when 1
-        "バーディー"
-    when 2
-        if regulation == 3
-            "ホールインワン"
-        else
-            "イーグル"
-        end
-    when 3
-        if regulation == 4
-            "ホールインワン"
-        else
-            "アルバトロス"
-        end
-    when 4
-        "コンドル"
-    end
-end
-
-# 規定打数より多いときの結果を表示
-def result_over(regulation, result)
-    case result - regulation
-    when 1
-        "ボギー"
-    when (2..)
+SCORE_MAPPING = {
+        -1 => "ボギー",
+        0 => "パー",
+        1 => "バーディ",
+        2 => "イーグル",
+        3 => "アルバトロス",
+        4 => "コンドル",
+}
+def show_result(regulation, result)
+    # 前半がresult > regulation、後半がresult <= regulation
+    if (2..).cover?(result-regulation)
         "#{result-regulation}ボギー"
+    elsif regulation - result == -1
+        SCORE_MAPPING[regulation-result]
+    elsif (3..4).cover?(regulation) && result == 1
+        "ホールインワン"
+    else
+        SCORE_MAPPING[regulation-result]
     end
 end
 
@@ -46,11 +34,7 @@ results = regulation_and_result[1].map(&:to_i)
 # 出力結果を一度配列に入れて表示を整形する
 array = []
 regulations.each_with_index do |regulation, index|
-    if regulation - results[index] >= 0
-        array << result_under(regulation, results[index])
-    else
-        array << result_over(regulation, results[index])
-    end
+    array << show_result(regulation, results[index])
 end
 
 puts array.join(",")
