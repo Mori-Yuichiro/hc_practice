@@ -11,8 +11,6 @@ def show_result(regulation, result)
     # 前半がresult > regulation、後半がresult <= regulation
     if (2..).cover?(result-regulation)
         "#{result-regulation}ボギー"
-    elsif regulation - result == -1
-        SCORE_MAPPING[regulation-result]
     elsif (3..4).cover?(regulation) && result == 1
         "ホールインワン"
     else
