@@ -1,4 +1,3 @@
-require_relative "./juice"
 require_relative "./vending_machine"
 
 
