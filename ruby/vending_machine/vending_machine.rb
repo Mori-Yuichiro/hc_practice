@@ -1,65 +1,84 @@
 require_relative "./suica"
 require_relative "./juice"
 
+DRINK_STOCK = {
+    "pepsi" => 5,
+    "monster" => 5,
+    "irohasu" => 5,
+}
 
 # 自動販売機クラス
 class VendingMachine
     def initialize
-        suica = Suica.new
+        # suica = Suica.new
         pepsi_data = Juice.new("pepsi", 150)
         monster_data = Juice.new("monster", 230)
         irohasu_data = Juice.new("irohasu", 120)
-        # 残高
-        @deposit = suica.deposit
 
         # 飲み物を五本ずつ格納
-        @stock = {
-            {pepsi_data.name=>pepsi_data.price} => 5,
-            {monster_data.name=>monster_data.price} => 5,
-            {irohasu_data.name=>irohasu_data.price} => 5
-        }
+        @stock = [
+            pepsi_data,
+            monster_data,
+            irohasu_data,
+        ]
+
         # 売り上げ
         @sales = 0
     end
 
     # 在庫を取得
     def stock
-        stock_value = @stock.values
-        "ペプシ: #{stock_value[0]}, モンスター: #{stock_value[1]}, いろはす: #{stock_value[2]}"
+        "ペプシ: #{DRINK_STOCK["pepsi"]}, モンスター: #{DRINK_STOCK["monster"]}, いろはす: #{DRINK_STOCK["irohasu"]}"
     end
 
     # 購入処理
-    def buy(juice_hash)
-        # 残高が値段以上で在庫がある場合
-        if juice_hash.values[0] <= @deposit && @stock[juice_hash] != 0
-            @deposit -= juice_hash.values[0]
-            @stock[juice_hash] -= 1
-            add_sales(juice_hash.values[0])
-        else
-            raise "購入できません。在庫:#{@stock[juice_hash]}, 残高: #{@deposit}"
+    def buy(juice_name, suica)
+        # 選択したジュースのインスタンスを格納
+        selected_juice = ""
+        @stock.each do |juice|
+            if juice.name == juice_name
+                selected_juice = juice
+            end
         end
 
-        "残高:#{@deposit}, 在庫:#{@stock[juice_hash]} , 売り上げ:#{@sales} "
+        # 残高が値段以下もしくは在庫がない場合
+        raise "購入できません。残高: #{suica.deposit}" if suica.deposit < selected_juice.price
+        raise "購入できません。在庫:#{DRINK_STOCK[selected_juice.name]}" if DRINK_STOCK[selected_juice.name].zero?
+        
+        # 残高が値段以上で在庫がある場合
+        suica.pay(selected_juice.price)
+        DRINK_STOCK[selected_juice.name] -= 1
+        #在庫が0になったら@stockから削除
+        if DRINK_STOCK[selected_juice] == 0
+            delJuice(selected_juice)
+        end
+        add_sales(selected_juice.price)
+
+        "残高:#{suica.deposit}, 在庫:#{DRINK_STOCK[selected_juice.name]} , 売り上げ:#{@sales} "
     end
 
     # 購入可能なドリンクのリスト
     def list
         buy_list = []
-        @stock.each do |juice_hash, juice_stock|
-            # 在庫が1個以上であれば表示するリストに追加
-            buy_list << juice_hash.keys[0] if juice_stock > 0
+        @stock.each do |juice|
+            buy_list << juice.name
         end
         buy_list
     end
 
     # 在庫を補充
-    def add_juice(juice_hash)
-        @stock[juice_hash] += 1
+    def add_juice(juice_name)
+        DRINK_STOCK[juice_name] += 1
     end
 
     # 売り上げを追加
     private
     def add_sales(price)
         @sales += price
+    end
+
+    # @stockからJuiceインスタンスを削除
+    def delJuice(juice)
+        @stock.delete(juice)
     end
 end

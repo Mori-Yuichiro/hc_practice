@@ -1,15 +1,12 @@
 require_relative "./vending_machine"
 
 
-pepsi = {"pepsi"=> 150}
-monster = {"monster"=> 230}
-irohasu = {"irohasu"=> 120}
-
+suica = Suica.new
 vending = VendingMachine.new
-puts vending.buy(pepsi)
-vending.add_juice(pepsi)
-vending.add_juice(pepsi)
-vending.add_juice(monster)
+puts vending.buy("pepsi", suica)
+vending.add_juice("pepsi")
+vending.add_juice("pepsi")
+vending.add_juice("monster")
 p vending.list
-puts vending.buy(irohasu)
+puts vending.buy("irohasu", suica)
 puts vending.stock

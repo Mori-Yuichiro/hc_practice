@@ -9,6 +9,11 @@ class Suica
         @deposit
     end
 
+    #残高を減らす
+    def pay(price)
+        @deposit -= price
+    end
+
     # 残高チャージする
     private
     def charge_deposit(charge)
